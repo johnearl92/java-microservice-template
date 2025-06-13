@@ -1,14 +1,19 @@
 package org.example.orderservice.order;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
@@ -22,17 +27,25 @@ public class Order {
 
     private Integer quantity;
 
+//    @Column(name = "external_id", unique = true, nullable = false, updatable = false)
+//    private UUID externalId;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private OrderStatus status;
+
+    @CreatedDate
     private LocalDateTime createdAt;
 
-    public Order(String item, int quantity) {
+    public Order(String item, int quantity, OrderStatus status) {
         this.itemName = item;
         this.quantity = quantity;
+        this.status = status;
         this.createdAt = LocalDateTime.now();
     }
 
-
     public Order() {
-
+        this.status = OrderStatus.PENDING; // Default status
     }
 
     public Long getId() {
@@ -65,5 +78,13 @@ public class Order {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public OrderStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(OrderStatus status) {
+        this.status = status;
     }
 }

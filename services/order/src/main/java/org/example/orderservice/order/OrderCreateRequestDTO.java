@@ -1,13 +1,21 @@
 package org.example.orderservice.order;
 
-public class OrderCreateDTO {
+
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+
+public class OrderCreateRequestDTO {
+
+    @NotNull(message = "Item cannot be null")
     private String item;
+
+    @Positive(message = "Quantity must be a positive number")
     private int quantity;
 
-    public OrderCreateDTO() {
+    public OrderCreateRequestDTO() {
     }
 
-    public OrderCreateDTO(String item, int quantity) {
+    public OrderCreateRequestDTO(String item, int quantity) {
         this.item = item;
         this.quantity = quantity;
     }

@@ -8,7 +8,6 @@
 # Concepts
 - Microservice
 - Event-Driven Architecture
-- CQRS (Command Query Responsibility Segregation)
 - Rate Limiting
 - Caching
 - ELK

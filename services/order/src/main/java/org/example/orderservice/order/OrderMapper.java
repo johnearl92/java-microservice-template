@@ -10,9 +10,14 @@ public class OrderMapper {
         );
     }
 
+    public static Order toOrder(OrderCreateRequestDTO orderCreateRequestDTO) {
+        return new Order(orderCreateRequestDTO.getItem(), orderCreateRequestDTO.getQuantity(), OrderStatus.PENDING);
+    }
 
-
-    public static Order toOrder(OrderCreateDTO orderCreateDTO) {
-        return new Order(orderCreateDTO.getItem(), orderCreateDTO.getQuantity());
+    public static OrderCreateRequestDTO toOrderRequestDTO(OrderResponseDTO orderResponseDTO) {
+        return new OrderCreateRequestDTO(
+                orderResponseDTO.item(),
+                orderResponseDTO.quantity()
+        );
     }
 }
