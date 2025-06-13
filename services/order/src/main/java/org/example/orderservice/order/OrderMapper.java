@@ -6,7 +6,8 @@ public class OrderMapper {
         return new OrderResponseDTO(
                 order.getId(),
                 order.getItemName(),
-                order.getQuantity()
+                order.getQuantity(),
+                order.getOrderStatus()
         );
     }
 

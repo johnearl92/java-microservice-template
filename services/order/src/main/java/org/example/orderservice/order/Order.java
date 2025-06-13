@@ -13,7 +13,6 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
@@ -32,20 +31,20 @@ public class Order {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
-    private OrderStatus status;
+    private OrderStatus orderStatus;
 
     @CreatedDate
     private LocalDateTime createdAt;
 
-    public Order(String item, int quantity, OrderStatus status) {
+    public Order(String item, int quantity, OrderStatus orderStatus) {
         this.itemName = item;
         this.quantity = quantity;
-        this.status = status;
+        this.orderStatus = orderStatus;
         this.createdAt = LocalDateTime.now();
     }
 
     public Order() {
-        this.status = OrderStatus.PENDING; // Default status
+        this.orderStatus = OrderStatus.PENDING; // Default status
     }
 
     public Long getId() {
@@ -80,11 +79,11 @@ public class Order {
         this.createdAt = createdAt;
     }
 
-    public OrderStatus getStatus() {
-        return status;
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
     }
 
-    public void setStatus(OrderStatus status) {
-        this.status = status;
+    public void setOrderStatus(OrderStatus status) {
+        this.orderStatus = status;
     }
 }

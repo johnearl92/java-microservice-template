@@ -52,6 +52,7 @@ class OrderIT {
         assertThat(response.id()).isNotNull();
         assertThat(response.item()).isEqualTo(item);
         assertThat(response.quantity()).isEqualTo(quantity);
+        assertThat(response.orderStatus()).isEqualTo(OrderStatus.PENDING);
     }
 
     @Test
