@@ -92,22 +92,6 @@ class OrderIT {
         assertThat(response.quantity()).isEqualTo(orderResponseDTO.quantity());
     }
 
-    @Test
-    @Disabled
-    void shouldBlockRequestOverLimit() {
-
-        // given
-        OrderResponseDTO orderResponseDTO = createAndSaveOrder("laptop", 2);
-
-        for (int i = 0; i < 20; i++) {
-            var response =restClient.get()
-                    .uri("/{id}", orderResponseDTO.id())
-                    .retrieve()
-                    .body(OrderResponseDTO.class);
-            assertThat(response.id()).isEqualTo(orderResponseDTO.id());
-        }
-    }
-
     private OrderCreateRequestDTO createOrder(String item, int quantity) {
         return new OrderCreateRequestDTO(item, quantity);
     }
