@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/java-microservice-template.iml" filepath="$PROJECT_DIR$/java-microservice-template.iml" />
+      <module fileurl="file://$PROJECT_DIR$/services/shipping/shipping.iml" filepath="$PROJECT_DIR$/services/shipping/shipping.iml" />
     </modules>
   </component>
 </project>

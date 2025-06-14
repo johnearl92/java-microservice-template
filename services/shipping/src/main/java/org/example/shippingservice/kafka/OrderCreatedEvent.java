@@ -1,8 +1,8 @@
-package org.example.orderservice.order.kafka;
+package org.example.shippingservice.kafka;
 
 import java.util.UUID;
 
-public record OrderCreatedEvent (
+public record OrderCreatedEvent(
     String externalId,
     String traceId,
     String itemName,

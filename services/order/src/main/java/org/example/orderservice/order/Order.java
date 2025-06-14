@@ -28,7 +28,7 @@ public class Order {
     private Integer quantity;
 
     @Column(name = "external_id", unique = true, nullable = false, updatable = false)
-    private UUID externalId;
+    private String externalId;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
@@ -42,7 +42,7 @@ public class Order {
         this.quantity = quantity;
         this.orderStatus = OrderStatus.PENDING; // Default status
         this.createdAt = LocalDateTime.now();
-        this.externalId = UUID.randomUUID(); // Generate a new UUID by default
+        this.externalId = UUID.randomUUID().toString(); // Generate a new UUID by default
     }
 
     public Order() {
@@ -88,11 +88,11 @@ public class Order {
         this.orderStatus = status;
     }
 
-    public UUID getExternalId() {
+    public String getExternalId() {
         return externalId;
     }
 
-    public void setExternalId(UUID externalId) {
+    public void setExternalId(String externalId) {
         this.externalId = externalId;
     }
 }

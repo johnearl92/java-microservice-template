@@ -25,7 +25,7 @@ class OrderEventProducerTest {
     void shouldPublishOrderCreatedEventToKafka() {
         // Given
         OrderCreatedEvent event = new OrderCreatedEvent(
-                UUID.randomUUID(),
+                UUID.randomUUID().toString(),
                 UUID.randomUUID().toString(),
                 "product-name",
                 2);
