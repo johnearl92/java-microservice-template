@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class OrderService {
 
@@ -33,5 +35,13 @@ public class OrderService {
         return this.orderRepository.findById(id)
                 .map(OrderMapper::toOrderResponseDTO)
                 .orElseThrow(() -> new OrderNotFoundException("Order not found with id: " + id));
+    }
+
+    public List<OrderResponseDTO> getAllOrders() {
+        logger.info("Fetching all orders");
+        return this.orderRepository.findAll()
+                .stream()
+                .map(OrderMapper::toOrderResponseDTO)
+                .toList();
     }
 }

@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/orders")
 public class OrderController {
@@ -33,5 +35,11 @@ public class OrderController {
     public ResponseEntity<OrderResponseDTO> getOrderById(@PathVariable Long id) {
         OrderResponseDTO orderResponse = this.orderService.getOrderById(id);
         return ResponseEntity.ok(orderResponse);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<OrderResponseDTO>> getAllOrders() {
+        List<OrderResponseDTO> orders = this.orderService.getAllOrders();
+        return ResponseEntity.ok(orders);
     }
 }
