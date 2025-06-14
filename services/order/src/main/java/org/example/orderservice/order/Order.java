@@ -13,6 +13,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
@@ -26,8 +27,8 @@ public class Order {
 
     private Integer quantity;
 
-//    @Column(name = "external_id", unique = true, nullable = false, updatable = false)
-//    private UUID externalId;
+    @Column(name = "external_id", unique = true, nullable = false, updatable = false)
+    private UUID externalId;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
@@ -36,15 +37,15 @@ public class Order {
     @CreatedDate
     private LocalDateTime createdAt;
 
-    public Order(String item, int quantity, OrderStatus orderStatus) {
+    public Order(String item, int quantity) {
         this.itemName = item;
         this.quantity = quantity;
-        this.orderStatus = orderStatus;
+        this.orderStatus = OrderStatus.PENDING; // Default status
         this.createdAt = LocalDateTime.now();
+        this.externalId = UUID.randomUUID(); // Generate a new UUID by default
     }
 
     public Order() {
-        this.orderStatus = OrderStatus.PENDING; // Default status
     }
 
     public Long getId() {
@@ -85,5 +86,13 @@ public class Order {
 
     public void setOrderStatus(OrderStatus status) {
         this.orderStatus = status;
+    }
+
+    public UUID getExternalId() {
+        return externalId;
+    }
+
+    public void setExternalId(UUID externalId) {
+        this.externalId = externalId;
     }
 }
