@@ -17,15 +17,27 @@ Todo:
 
 
 # How To Use
-# 1. build 
-```aiignore
-docker compose build
-```
+- docker deployment didn't work yet. 
+- just execute the unit tests and integration tests
+[//]: # (# 1. build )
 
-# 2. run
-```aiignore
-docker compose up -d
-```
+[//]: # (```aiignore)
 
-# 3. test
-http://localhost:8080/swagger-ui/index.html
+[//]: # (docker compose build)
+
+[//]: # (```)
+
+[//]: # ()
+[//]: # (# 2. run)
+
+[//]: # (```aiignore)
+
+[//]: # (docker compose up -d)
+
+[//]: # (```)
+
+[//]: # ()
+[//]: # (# 3. test)
+
+[//]: # (http://localhost:8080/swagger-ui/index.html)
+
