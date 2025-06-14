@@ -16,12 +16,29 @@ services:
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
 
+  api:
+    build: services/gateway
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./config/gateway-application.yml:/app/config/application.yml
+    environment:
+      - SPRING_CONFIG_LOCATION=classpath:/,file:/app/config/
+    depends_on:
+      - order
+      - shipping
+
   order:
     build: services/order
     ports:
       - "8081:8080"
+    volumes:
+      - ./config/order-application.yml:/app/config/application.yml
+    environment:
+      - SPRING_CONFIG_LOCATION=classpath:/,file:/app/config/
+      - SPRING_KAFKA_BOOTSTRAP_SERVERS=kafka:9092
     depends_on:
-      db:
+      db_order_service:
         condition: service_healthy
 
   shipping:
@@ -29,17 +46,38 @@ services:
     ports:
       - "8082:8080"
     depends_on:
-      db:
+      db_shipping_service:
         condition: service_healthy
-  db:
+
+  db_order_service:
     image: postgres
     volumes:
       - ./tmp/db:/var/lib/postgresql/data
     environment:
-      POSTGRES_DB: ktor_tutorial_db
+      POSTGRES_DB: order_service
+      POSTGRES_PASSWORD: order_pw
+      POSTGRES_USER: order_user
       POSTGRES_HOST_AUTH_METHOD: trust
     ports:
       - "5432:5432"
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U postgres" ]
       interval: 1s
+
+  db_shipping_service:
+    image: postgres
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: shipping_service
+      POSTGRES_PASSWORD: shipping_pw
+      POSTGRES_USER: shipping_user
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 1s
+
+networks:
+  micro:

@@ -1,7 +1,0 @@
-springdoc:
-  swagger-ui:
-    urls:
-      - name: Order Service
-        url: http://localhost:8081/v3/api-docs
-      - name: Shipping Service
-        url: http://localhost:8082/v3/api-docs

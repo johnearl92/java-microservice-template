@@ -20,7 +20,7 @@ spring:
       on-profile: prod
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/order_service
+    url: jdbc:postgresql://db_order_service:5432/order_service
     username: order_user
     password: order_pw
   jpa:
@@ -37,10 +37,10 @@ spring:
     console:
       enabled: true
   kafka:
-    bootstrap-servers: localhost:9092
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      bootstrap-servers: kafka:9092
     consumer:
       group-id: shipping-service
       auto-offset-reset: earliest
@@ -48,6 +48,7 @@ spring:
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
         spring.json.trusted.packages: "*"
+      bootstrap-servers: kafka:9092
 springdoc:
   api-docs:
     path: /api-docs

@@ -1,33 +1,15 @@
 server:
   port: 8080
 
----
-spring:
-  config:
-    activate:
-      on-profile: dev
-  datasource:
-    url: jdbc:h2:mem:testdb
-    username: sa
-    password:
-  jpa:
-    hibernate:
-      ddl-auto: create-drop
----
 spring:
   config:
     activate:
       on-profile: prod
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://db_shipping_service:5433/shipping_service
-    username: shipping_user
-    password: shipping_pw
-  jpa:
-    hibernate:
-      ddl-auto: update
----
-spring:
+    url: jdbc:postgresql://localhost:5432/order_service
+    username: order_user
+    password: order_pw
   jpa:
     hibernate:
       ddl-auto: create
@@ -37,19 +19,19 @@ spring:
     console:
       enabled: true
   kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      bootstrap-servers: localhost:9092
     consumer:
-      bootstrap-servers: kafka:9092
-      group-id: order-service
+      group-id: shipping-service
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
         spring.json.trusted.packages: "*"
-    producer:
-      bootstrap-servers: kafka:9092
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-
+      bootstrap-servers: localhost:9092
 springdoc:
   api-docs:
     path: /api-docs

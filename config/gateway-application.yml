@@ -1,0 +1,31 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      routes:
+        - id: order-service
+          uri: http://order:8080
+          predicates:
+            - Path=/order/**
+
+        - id: shipping-service
+          uri: http://shipping:8080
+          predicates:
+            - Path=/shipping/**
+springdoc:
+  swagger-ui:
+    urls:
+      - name: Order Service
+        url: http://localhost:8080/order/v3/api-docs
+      - name: Shipping Service
+        url: http://localhost:8080/shipping/v3/api-docs
+
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    reactor.netty.http.client: DEBUG
