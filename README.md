@@ -13,6 +13,7 @@
 Todo:
 - api gateway
 - service discovery
+- kafka
 
 
 # How To Use
