@@ -44,4 +44,15 @@ public class OrderService {
                 .map(OrderMapper::toOrderResponseDTO)
                 .toList();
     }
+
+    @Transactional
+    public void updateOrderStatus(String extenalId, String status) {
+        logger.info("Updating order status for order {} to {}", extenalId, status);
+        this.orderRepository.findByExternalId(extenalId)
+                .map(order -> {
+                    order.setOrderStatus(OrderStatus.valueOf(status));
+                    return order;
+                })
+                .orElseThrow(() -> new OrderNotFoundException("Order not found with id: " + extenalId));
+    }
 }

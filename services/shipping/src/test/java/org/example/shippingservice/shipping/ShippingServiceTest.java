@@ -66,6 +66,6 @@ class ShippingServiceTest {
 
         ShippingStatusUpdateEvent event = captor.getValue();
         assertThat(event.orderId()).isEqualTo(shipping.getOrderId());
-        assertThat(event.shippingStatus()).isEqualTo(ShippingStatus.DELIVERED);
+        assertThat(event.shippingStatus()).isEqualTo(ShippingStatus.DELIVERED.name());
     }
 }

@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/services/api-docs-service/api-docs-service.iml" filepath="$PROJECT_DIR$/services/api-docs-service/api-docs-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/java-microservice-template.iml" filepath="$PROJECT_DIR$/java-microservice-template.iml" />
-      <module fileurl="file://$PROJECT_DIR$/services/shipping/shipping.iml" filepath="$PROJECT_DIR$/services/shipping/shipping.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/shipping.main.iml" filepath="$PROJECT_DIR$/.idea/modules/shipping.main.iml" />
     </modules>
   </component>
 </project>

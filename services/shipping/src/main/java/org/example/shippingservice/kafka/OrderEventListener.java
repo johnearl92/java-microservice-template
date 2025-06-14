@@ -3,12 +3,7 @@ package org.example.shippingservice.kafka;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.example.shippingservice.shipping.Shipping;
-import org.example.shippingservice.shipping.ShippingRepository;
 import org.example.shippingservice.shipping.ShippingService;
-import org.example.shippingservice.shipping.ShippingStatus;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 

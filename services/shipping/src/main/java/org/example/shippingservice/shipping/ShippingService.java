@@ -36,7 +36,7 @@ public class ShippingService {
                 .map(shippingEntity -> {
                     shippingEntity.setShippingStatus(status);
                     kafkaTemplate.send("shipping.status.updated",
-                            new ShippingStatusUpdateEvent(shippingEntity.getOrderId(), status));
+                            new ShippingStatusUpdateEvent(shippingEntity.getOrderId(), status.name()));
                     return ShippingMapper.toShippingResponseDTO(shippingEntity);
                 })
                 .orElseThrow(() -> new ShippingNotFoundException("Shipping not found for order: " + id));
