@@ -20,9 +20,9 @@ springdoc:
   swagger-ui:
     urls:
       - name: Order Service
-        url: http://localhost:8080/order/v3/api-docs
+        url: http://order:8080/order/api-docs
       - name: Shipping Service
-        url: http://localhost:8080/shipping/v3/api-docs
+        url: http://shipping:8080/shipping/api-docs
 
 
 logging:
