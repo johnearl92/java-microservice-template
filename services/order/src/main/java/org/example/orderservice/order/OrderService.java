@@ -4,10 +4,17 @@ import org.example.orderservice.error.OrderNotFoundException;
 import org.example.orderservice.order.kafka.OrderEventProducer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cglib.core.Local;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.data.domain.Pageable;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OrderService {
@@ -43,6 +50,18 @@ public class OrderService {
                 .stream()
                 .map(OrderMapper::toOrderResponseDTO)
                 .toList();
+    }
+
+    public PaginatedOrders getOrders(Optional<LocalDateTime> cursor, int limit) {
+        Pageable pageable = PageRequest.of(0, limit);
+
+        List<Order> orders = cursor
+                .map(c -> orderRepository.findByCreatedAtLessThanOrderByCreatedAtDesc(c, pageable))
+                .orElse(orderRepository.findAllByOrderByCreatedAtDesc(pageable));
+
+        LocalDateTime nextCursor = orders.isEmpty() ? null : orders.getLast().getCreatedAt();
+
+        return new PaginatedOrders(orders, nextCursor);
     }
 
     @Transactional

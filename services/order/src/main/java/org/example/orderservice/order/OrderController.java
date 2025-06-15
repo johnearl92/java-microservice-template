@@ -8,10 +8,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import java.time.Instant;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/orders")
@@ -38,8 +42,10 @@ public class OrderController {
     }
 
     @GetMapping
-    public ResponseEntity<List<OrderResponseDTO>> getAllOrders() {
-        List<OrderResponseDTO> orders = this.orderService.getAllOrders();
-        return ResponseEntity.ok(orders);
+    public PaginatedOrders getOrders(
+            @RequestParam Optional<LocalDateTime> cursor,
+            @RequestParam(defaultValue = "10") int limit
+    ) {
+        return orderService.getOrders(cursor, limit);
     }
 }
